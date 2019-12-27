@@ -13,7 +13,7 @@
   "info": {
     "description": "simple json datasource",
     "author": {
-      "name": "Grafana Labs",
+      "name": "zy",
       "url": "https://grafana.com"
     },
     "logos": {
@@ -21,8 +21,8 @@
       "large": "img/simpleJson_logo.svg"
     },
     "links": [
-      {"name": "GitHub", "url": "https://github.com/grafana/simple-json-datasource"},
-      {"name": "MIT License", "url": "https://github.com/grafana/simple-json-datasource/blob/master/LICENSE"}
+      // {"name": "GitHub", "url": "https://github.com/grafana/simple-json-datasource"},
+      // {"name": "MIT License", "url": "https://github.com/grafana/simple-json-datasource/blob/master/LICENSE"}
     ],
     "version": "1.4.0",
     "updated": "2018-06-20"

@@ -15,6 +15,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * 数据源 http://localhost:3000/api/datasources/19
+ * 配置好的数据源会去为他设置一个id，请求这个数据源配置的信息
+ * 在grafana请求数据源配置的时候
+ * 1.根据id请求原来的配置数据
+ * 2.获取该插件的plugin.json
+ * 3.获取module.js, dataSource.js, query_ctrl.js，css,config.html
+ * 
+ *
+ * @export
+ * @class GenericDatasource
+ */
 var GenericDatasource = exports.GenericDatasource = function () {
   function GenericDatasource(instanceSettings, $q, backendSrv, templateSrv) {
     _classCallCheck(this, GenericDatasource);
@@ -49,16 +61,22 @@ var GenericDatasource = exports.GenericDatasource = function () {
       } else {
         query.adhocFilters = [];
       }
-
+      console.log('query-this.url', this.url);
+      // this.url是grafana为数据源设置的接口url
       return this.doRequest({
         url: this.url + '/query',
         data: query,
         method: 'POST'
       });
     }
+
+    // 测试地址链接
+
   }, {
     key: 'testDatasource',
     value: function testDatasource() {
+      // this.url是grafana为数据源设置的接口url
+      console.log('testDatasource-this.url', this.url);
       return this.doRequest({
         url: this.url + '/',
         method: 'GET'
@@ -99,6 +117,7 @@ var GenericDatasource = exports.GenericDatasource = function () {
         target: this.templateSrv.replace(query, null, 'regex')
       };
 
+      console.log('metricFindQuery-this.url', this.url);
       return this.doRequest({
         url: this.url + '/search',
         data: interpolated,
@@ -117,6 +136,9 @@ var GenericDatasource = exports.GenericDatasource = function () {
         return { text: d, value: d };
       });
     }
+
+    // request请求
+
   }, {
     key: 'doRequest',
     value: function doRequest(options) {
@@ -154,6 +176,7 @@ var GenericDatasource = exports.GenericDatasource = function () {
       var _this2 = this;
 
       return new Promise(function (resolve, reject) {
+        console.log('getTagKeys-this.url', _this2.url);
         _this2.doRequest({
           url: _this2.url + '/tag-keys',
           method: 'POST',
@@ -168,6 +191,7 @@ var GenericDatasource = exports.GenericDatasource = function () {
     value: function getTagValues(options) {
       var _this3 = this;
 
+      console.log('getTagValues-this.url', this.url);
       return new Promise(function (resolve, reject) {
         _this3.doRequest({
           url: _this3.url + '/tag-values',

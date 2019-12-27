@@ -25,4 +25,3 @@ export class GenericDatasourceQueryCtrl extends QueryCtrl {
 }
 
 GenericDatasourceQueryCtrl.templateUrl = 'partials/query.editor.html';
-

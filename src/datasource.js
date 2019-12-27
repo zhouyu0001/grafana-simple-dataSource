@@ -1,7 +1,18 @@
 import _ from "lodash";
 
+/**
+ * 数据源 http://localhost:3000/api/datasources/19
+ * 配置好的数据源会去为他设置一个id，请求这个数据源配置的信息
+ * 在grafana请求数据源配置的时候
+ * 1.根据id请求原来的配置数据
+ * 2.获取该插件的plugin.json
+ * 3.获取module.js, dataSource.js, query_ctrl.js，css,config.html
+ * 
+ *
+ * @export
+ * @class GenericDatasource
+ */
 export class GenericDatasource {
-
   constructor(instanceSettings, $q, backendSrv, templateSrv) {
     this.type = instanceSettings.type;
     this.url = instanceSettings.url;
@@ -29,7 +40,8 @@ export class GenericDatasource {
     } else {
       query.adhocFilters = [];
     }
-
+    console.log('query-this.url', this.url);
+    // this.url是grafana为数据源设置的接口url
     return this.doRequest({
       url: this.url + '/query',
       data: query,
@@ -37,7 +49,10 @@ export class GenericDatasource {
     });
   }
 
+  // 测试地址链接
   testDatasource() {
+    // this.url是grafana为数据源设置的接口url
+    console.log('testDatasource-this.url', this.url);
     return this.doRequest({
       url: this.url + '/',
       method: 'GET',
@@ -76,6 +91,7 @@ export class GenericDatasource {
         target: this.templateSrv.replace(query, null, 'regex')
     };
 
+    console.log('metricFindQuery-this.url', this.url);
     return this.doRequest({
       url: this.url + '/search',
       data: interpolated,
@@ -94,6 +110,7 @@ export class GenericDatasource {
     });
   }
 
+  // request请求
   doRequest(options) {
     options.withCredentials = this.withCredentials;
     options.headers = this.headers;
@@ -122,7 +139,9 @@ export class GenericDatasource {
   }
 
   getTagKeys(options) {
+
     return new Promise((resolve, reject) => {
+      console.log('getTagKeys-this.url', this.url);
       this.doRequest({
         url: this.url + '/tag-keys',
         method: 'POST',
@@ -134,6 +153,7 @@ export class GenericDatasource {
   }
 
   getTagValues(options) {
+    console.log('getTagValues-this.url', this.url);
     return new Promise((resolve, reject) => {
       this.doRequest({
         url: this.url + '/tag-values',
